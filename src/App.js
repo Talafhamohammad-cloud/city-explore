@@ -31,7 +31,7 @@ export class App extends Component {
     e.preventDefault();
     try {
       const myApiRes = await axios.get(`${process.env.REACT_APP_URL}/weather-data`);
-      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.518eadd354211d5db70c1031073bc3e1&q=${this.state.cityName}&format=json`);
+      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.47bfe57b7ed998830cb39cf684cd82cf&q=${this.state.cityName}&format=json`);
       console.log(res.data[0]);
       this.setState({
         CityData: res.data[0],
