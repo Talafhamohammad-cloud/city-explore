@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 
-class Weather extends Component {
+export class Weather extends Component {
     render() {
-        const weatherData = [];
-        return(
-        <>
-        
+        return (
+          <>
+          {
+              this.props.weather.map(weatherObj=>{
+                  return(
+                      <>
                       <ListGroup>
-                      {weatherData.description}
+                          {weatherObj.description}
                       </ListGroup>
                       <ListGroup>
-                      {weatherData.date}
+                      {weatherObj.date}
                       </ListGroup>
                       </>
+                  )
+              })
+          }
+          </>
+        )
+    }
+}
 
-        )}
-
-        }
 export default Weather
