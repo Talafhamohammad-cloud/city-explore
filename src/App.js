@@ -9,6 +9,7 @@ import AlertMsg from "./components/AlertMsg";
 import SearchForm from './components/SearchForm';
 import Map from './components/Map';
 import CityData from './components/CityData';
+import Weather from "./components/Weather";
 
 export class App extends Component {
   constructor(props) {
@@ -16,10 +17,12 @@ export class App extends Component {
     this.state = {
       cityName: '',
       cityData: {},
-      weatherData:[],
       show: false,
       alert: false,
-      error: ''
+      error: '',
+      lat:'',
+      lon:'',
+      weatherData:[]
     }
   }
   updateCityName = (e) => {
@@ -29,22 +32,22 @@ export class App extends Component {
   }
   getData = async (e) => {
     e.preventDefault();
-    try {
-      const myApiRes = await axios.get(`${process.env.REACT_APP_URL}/weather-data`);
-      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.47bfe57b7ed998830cb39cf684cd82cf&q=${this.state.cityName}&format=json`);
-      console.log(res.data[0]);
-      this.setState({
-        CityData: res.data[0],
-        weatherData: myApiRes.data.data,
-        show: true,
-        alert: false
-      })
-    } catch (error) {
-      this.setState({
-        error: error.message,
-        alert: true
-      })
-    }
+      await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.47bfe57b7ed998830cb39cf684cd82cf&q=${this.state.cityName}&format=json`).then(myApiRes=>{
+        this.setState({
+          CityData:myApiRes.data[0],
+          lat:myApiRes.data[0].lat,
+          lon:myApiRes.data[0].lon
+      });
+      axios.get(`http://localhost:8080/weather?lon=${this.state.lon}&lat=${this.state.lat}`).then(weatherRes =>{
+        this.setState({
+          weatherData: weatherRes.data,
+          show: true,
+          alert: false,
+
+        })
+      });
+    });
+        
 
   }
   render() {
@@ -74,6 +77,9 @@ export class App extends Component {
 
                   <CityData
                     CityData={this.state.CityData}
+                  />
+
+                  <Weather weather={this.state.weatherData}
                   />
 
 
