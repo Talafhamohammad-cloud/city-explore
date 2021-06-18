@@ -4,10 +4,11 @@ export class CityData extends Component {
     render() {
         return (
             <div>
-                <p>`The City Name is :{this.props.CityData.display_name}`</p>
-                <p>`The lat : {this.props.CityData.lat}`</p>
-                <p>`The lon : {this.props.CityData.lon}`</p>
-                
+               <p>
+                {this.props.cityDat.display_name}
+              </p>
+              <p>{this.props.cityDat.lat}</p>
+            <p>{this.props.cityDat.lon}</p><br></br>
             </div>
         )
     }

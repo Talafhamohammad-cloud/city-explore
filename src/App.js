@@ -1,95 +1,98 @@
 
+import './App.css';
+import axios from 'axios';
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import AlertMsg from "./components/AlertMsg";
-import SearchForm from './components/SearchForm';
+import FormSearch from './components/Form';
+import AlertMess from './components/Alert';
 import Map from './components/Map';
-import CityData from './components/CityData';
+import CityData from './components/CityData'
+import Weather from './components/Weather'
 
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cityName: '',
-      cityData: {},
-      weatherData:[],
-      show: false,
-      alert: false,
-      error: ''
+    this.state={
+      cityNme:'',
+      cityDat:{},
+      displayD: false,
+      alert:false,
+      error:'',
+      weatherData:[]
+     
     }
   }
-  updateCityName = (e) => {
+
+  updateCityName = (e) =>{
     this.setState({
-      cityName: e.target.value,
-    })
+      cityNme:e.target.value,
+    });
   }
-  getData = async (e) => {
+  
+
+  getCity=async(e)=>{
     e.preventDefault();
-    try {
-      const myApiRes = await axios.get(`${process.env.REACT_APP_URL}/weather-data`);
-      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.47bfe57b7ed998830cb39cf684cd82cf&q=${this.state.cityName}&format=json`);
-      console.log(res.data[0]);
+  try{
+    const axiosRes = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.47bfe57b7ed998830cb39cf684cd82cf&city=${this.state.cityNme}&format=json`);
+  
+    const myApiRes = await axios.get(`${process.env.REACT_APP_URL}/`)
+    this.setState({
+      cityDat:axiosRes.data[0],
+      weatherData: myApiRes.data.data,
+      displayD:true,
+      alert:false,
+      
+    }); 
+  }  catch(error){
       this.setState({
-        CityData: res.data[0],
-        weatherData: myApiRes.data.data,
-        show: true,
-        alert: false
+        error:error.message,
+        alert:true,
+       
       })
-    } catch (error) {
-      this.setState({
-        error: error.message,
-        alert: true
-      })
-    }
-
   }
-  render() {
+   
+  
+  }
+
+  render(){
     return (
-      <div style={{ textAlign: 'center' }}>
-        {this.state.alert &&
-          <AlertMsg
-            error={this.state.error}
+
+    
+      <div>{this.state.alert &&
+        <AlertMess 
+        error={this.state.error}
+        />
+      }
+      <div>
+      <FormSearch
+          getCity={this.getCity}
+          updateCityName={this.updateCityName}
           />
-        }
-        <Container>
 
-          <Row>
-
-            <Col>
-              <SearchForm
-                getData={this.getData}
-                updateCityName={this.updateCityName}
+          {(this.state.displayD) && 
+            <div>
+              <Map
+              cityDat={this.state.cityDat}
               />
-              {(this.state.show) &&
-                <>
-
-                  <Map
-                    CityData={this.state.CityData}
-
-                  />
-
-                  <CityData
-                    CityData={this.state.CityData}
-                  />
-
-
-
-                </>
-              }
-            </Col>
-
-
-          </Row>
-        </Container>
-
+              <CityData
+              cityDat={this.state.cityDat}
+              />
+               <Weather
+              weather={this.state.weatherData}
+            />
+            </div>
+          }
+            
 
       </div>
-    )
+                   
+        </div>
+         
+    );
   }
+    
+  
+  
 }
 
-export default App
+export default App;
