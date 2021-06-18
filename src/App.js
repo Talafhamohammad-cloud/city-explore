@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormSearch from './components/Form';
-import AlertMess from './components/Alert';
+import AlertMess from './components/AlertMess';
 import Map from './components/Map';
 import CityData from './components/CityData'
 import Weather from './components/Weather'
