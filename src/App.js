@@ -10,7 +10,7 @@ import CityData from './components/CityData'
 import Weather from './components/Weather'
 
 export class App extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
     this.state={
       cityNme:'',

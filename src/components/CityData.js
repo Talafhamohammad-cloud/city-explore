@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export class CityData extends Component {
     render() {
@@ -8,10 +8,11 @@ export class CityData extends Component {
                 {this.props.cityDat.display_name}
               </p>
               <p>{this.props.cityDat.lat}</p>
-            <p>{this.props.cityDat.lon}</p><br></br>
+            <p>{this.props.cityDat.lon}</p>
+            <br></br>
             </div>
         )
     }
 }
 
-export default CityData
+export default CityData;

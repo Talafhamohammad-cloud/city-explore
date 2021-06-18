@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Image from 'react-bootstrap/Image'
-
 export class Map extends Component {
     render() {
         return (
