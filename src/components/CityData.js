@@ -9,7 +9,6 @@ export class CityData extends Component {
               </p>
               <p>{this.props.cityDat.lat}</p>
             <p>{this.props.cityDat.lon}</p>
-            <br></br>
             </div>
         )
     }

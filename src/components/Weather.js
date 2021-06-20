@@ -16,7 +16,7 @@ export class Weather extends Component {
                       </ListGroup>
                       <ListGroup>
                       {
-                          weatherData.valid_date
+                          weatherData.datetime
                       }
 
                       </ListGroup>
