@@ -6,14 +6,18 @@ export class Weather extends Component {
         return (
           <>
           {
-              this.props.weather.map(weather => {
+              this.props.weather.map(weatherData => {
                   return(
                       <>
                       <ListGroup>
-                      {weather.weather.description}
+                      {
+                          weatherData.weather.description
+                      }
                       </ListGroup>
                       <ListGroup>
-                      {weather.datetime}
+                      {
+                          weatherData.valid_date
+                      }
 
                       </ListGroup>
                       </>

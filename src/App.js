@@ -35,10 +35,12 @@ export class App extends Component {
   try{
     const axiosRes = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.47bfe57b7ed998830cb39cf684cd82cf&city=${this.state.cityNme}&format=json`);
   
-    const myApiRes = await axios.get(`${process.env.REACT_APP_URL}/`)
+    const myApiRes = await axios.get(`${process.env.REACT_APP_URL}/?lat=${this.state.lat}&lon=${this.state.lon}`)
     this.setState({
       cityDat:axiosRes.data[0],
-      weatherData: myApiRes.data.data,
+      lat: axiosRes.data[0].lat,
+      lon: axiosRes.data[0].lon,
+      weatherData: myApiRes.data,
       displayD:true,
       alert:false,
       
