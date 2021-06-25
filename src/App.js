@@ -35,12 +35,12 @@ export class App extends Component {
       await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.47bfe57b7ed998830cb39cf684cd82cf&q=${this.state.cityName}&format=json`).then(myApiRes=>{
         this.setState({
           CityData:myApiRes.data[0],
-          lat:myApiRes.data[0].lat,
-          lon:myApiRes.data[0].lon
+          //lat:myApiRes.data[0].lat,
+          //lon:myApiRes.data[0].lon
       });
-      axios.get(`http://localhost:8080/weather?lon=${this.state.lon}&lat=${this.state.lat}`).then(weatherRes =>{
+      axios.get(`http://localhost:8080/weather-data?lon=${this.state.lon}&lat=${this.state.lat}`).then(weatherres => {
         this.setState({
-          weatherData: weatherRes.data,
+          weatherData: weatherres.data,
           show: true,
           alert: false,
 
